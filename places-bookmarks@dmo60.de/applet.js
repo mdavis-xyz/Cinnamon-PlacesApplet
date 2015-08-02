@@ -9,8 +9,8 @@ const _ = Gettext.gettext;
 const ICON_SIZE = 22;
 
 /* Set APPLET_STYLE to one of the following and restart Cinnamon to apply changes:
- * "icon-home", "icon-home-symbolic", "icon-folder-symbolic", "text"  */
-const APPLET_STYLE = "icon-home";
+ * "icon-home", "icon-home-symbolic", "icon-home-both", "icon-folder-symbolic", "icon-folder-both", "text"  */
+const APPLET_STYLE = "icon-folder-both";
 
 /* Set custom APPLET_TEXT here. Set empty string ("") for default.
  * The text is only shown when APPLET_STYLE is set to "text". */
@@ -62,7 +62,7 @@ MyApplet.prototype = {
 			Applet.TextIconApplet.prototype._init.call(this, orientation);
 
 			try {
-				
+								
 				switch (APPLET_STYLE) {
 				case "text":
 					if (APPLET_TEXT)
@@ -73,8 +73,22 @@ MyApplet.prototype = {
 				case "icon-folder-symbolic":
 					this.set_applet_icon_symbolic_name("folder");
 					break;
+				case "icon-folder-both":
+					this.set_applet_icon_symbolic_name("folder");
+					if (APPLET_TEXT)
+						this.set_applet_label(APPLET_TEXT);
+					else
+						this.set_applet_label(_("Places"));
+					break;
 				case "icon-home-symbolic":
 					this.set_applet_icon_symbolic_name("user-home");
+					break;
+				case "icon-home-both":
+					this.set_applet_icon_symbolic_name("user-home");
+					if (APPLET_TEXT)
+						this.set_applet_label(APPLET_TEXT);
+					else
+						this.set_applet_label(_("Places"));
 					break;
 				default:
 					this.set_applet_icon_name("user-home");
